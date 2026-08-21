@@ -119,3 +119,14 @@ async def test_refill_and_discard(client):
     r = await client.post(f"/api/spools/{sp['id']}/discard")
     assert r.json()["location"] == "discarded"
     assert all(s["id"] != sp["id"] for s in (await client.get("/api/spools")).json())
+
+
+async def test_spools_include_product_specs(client):
+    spools = (await client.get("/api/spools")).json()
+    by_sub = {s["subtype"]: s for s in spools}
+    assert by_sub["PAHT-CF"]["strength_mpa"] == 125 and by_sub["PAHT-CF"]["heat_resistance_c"] == 194
+    assert by_sub["PLA Basic"]["strength_mpa"] == 76
+    assert by_sub["PLA-CF"]["stiffness_mpa"] == 3950 and by_sub["PLA-CF"]["toughness_kj_m2"] == 23.2
+    assert by_sub["TPU for AMS"]["strength_mpa"] is None  # no spec on the sheet
+    one = (await client.get(f"/api/spools/{by_sub['PC']['id']}")).json()
+    assert one["heat_resistance_c"] == 117

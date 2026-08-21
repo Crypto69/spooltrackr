@@ -78,7 +78,7 @@ const evLabel = { created: 'Added', loaded: 'Loaded', unloaded: 'Removed', print
       <div class="info">
         <div class="micro">{{ spool.brand }} · {{ spool.subtype }} · {{ spool.spool_type === 'refill' ? 'Refill' : 'Spool' }} · #{{ spool.id }}</div>
         <h1><span class="swatch lg" :style="{ background: '#' + (spool.colour_hex || '333') }"></span>{{ spool.colour_name }}
-          <span v-if="spool.variant?.colour_code" class="muted num" style="font-size:14px">{{ spool.variant.colour_code }}</span></h1>
+          <span v-if="spool.variant?.colour_code" class="muted num" style="font-size: 16px">{{ spool.variant.colour_code }}</span></h1>
         <div class="row wrap" style="margin:8px 0">
           <span class="badge" :class="spool.location.startsWith('ams:') ? 'edge' : ''">{{ locationLabel(spool.location) }}</span>
           <span class="badge" v-if="!spool.opened">Sealed</span>
@@ -151,14 +151,14 @@ const evLabel = { created: 'Added', loaded: 'Loaded', unloaded: 'Removed', print
 .img { width: 150px; height: 150px; border-radius: 10px; overflow: hidden; background: #fff; flex: none; }
 .img img { width: 100%; height: 100%; object-fit: contain; } .ph { display: block; width: 100%; height: 100%; }
 .info { flex: 1; min-width: 0; }
-h1 { font-size: 26px; display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+h1 { font-size: 30px; display: flex; align-items: center; gap: 10px; margin-top: 4px; }
 .swatch.lg { width: 22px; height: 22px; }
 .kv { display: flex; gap: 36px; flex-wrap: wrap; margin-top: 8px; }
-.big { font-size: 24px; font-weight: 600; }
+.big { font-size: 27px; font-weight: 600; }
 .cols { display: grid; grid-template-columns: 1fr 1.3fr; gap: 16px; margin-top: 16px; }
-.meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin-top: 14px; font-size: 12px; }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin-top: 14px; font-size: 14px; }
 .meta dt { color: var(--muted); }
 .nowrap { white-space: nowrap; } .right { text-align: right; }
-.hist td { padding: 6px 8px; font-size: 12.5px; }
+.hist td { padding: 6px 8px; font-size: 14px; }
 @media (max-width: 860px) { .hero { flex-direction: column; align-items: flex-start; } .cols { grid-template-columns: 1fr; } }
 </style>

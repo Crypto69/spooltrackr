@@ -13,6 +13,36 @@ test('inventory shows the seeded spools', async ({ page }) => {
   await expect(page.locator('[data-test^="spool-"]')).toHaveCount(1)
 })
 
+test('sort by strength and heat resistance', async ({ page }) => {
+  await page.goto('/')
+  const cards = page.locator('[data-test^="spool-"]')
+  await page.locator('[data-test=sort]').selectOption('strength')
+  await expect(cards.first()).toContainText('PAHT-CF')
+  await expect(cards.last()).toContainText('TPU')  // no strength spec -> last
+  await page.locator('[data-test=sort]').selectOption('toughness')
+  await expect(cards.first()).toContainText('TPU')  // TPU is the toughest
+  await page.locator('[data-test=sort]').selectOption('stiffness')
+  await expect(cards.first()).toContainText('PAHT-CF')
+  await page.locator('[data-test=sort]').selectOption('heat')
+  await expect(cards.first()).toContainText('PAHT-CF')
+  await expect(cards.nth(1)).toContainText('PC')
+})
+
+test('compare up to four spools side by side', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('[data-test=compare-toggle]').click()
+  const cards = page.locator('[data-test^="spool-"]')
+  for (let i = 0; i < 5; i++) await cards.nth(i).click()   // 5th is refused
+  await expect(page.locator('[data-test=compare-bar] .badge')).toHaveCount(4)
+  await page.locator('[data-test=compare-open]').click()
+  const table = page.locator('[data-test=compare-table]')
+  await expect(table.locator('thead th')).toHaveCount(5)   // label col + 4 spools
+  await expect(table.getByRole('row', { name: /Heat resistance/ })).toBeVisible()
+  await page.getByRole('button', { name: 'Close' }).click()
+  await page.locator('[data-test=compare-toggle]').click()   // Done
+  await expect(page.locator('[data-test=compare-bar]')).toHaveCount(0)
+})
+
 test('identify an AMS slot, print, and see grams deducted', async ({ page }) => {
   await page.goto('/ams')
   const a1 = page.locator('[data-test=slot-A1]')

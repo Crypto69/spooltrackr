@@ -62,6 +62,6 @@ const statusCls = { running: 'edge', finished: 'pass', unresolved: 'warn', resol
 </template>
 <style scoped>
 .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
-.name { font-weight: 600; font-size: 15px; display: flex; gap: 8px; align-items: center; }
-.small { font-size: 12px; } .big { font-size: 18px; font-weight: 600; } .right { text-align: right; }
+.name { font-weight: 600; font-size: 17px; display: flex; gap: 8px; align-items: center; }
+.small { font-size: 14px; } .big { font-size: 20px; font-weight: 600; } .right { text-align: right; }
 </style>

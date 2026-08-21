@@ -50,16 +50,16 @@ const nav = [
 
 <style scoped>
 .top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 24px; padding: 0 20px; height: 54px; background: rgba(20,23,28,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; color: var(--text); letter-spacing: -0.01em; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); letter-spacing: -0.01em; }
 .brand:hover { text-decoration: none; }
 nav { display: flex; gap: 4px; flex: 1; }
-.navlink { position: relative; color: var(--muted); padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 13px; }
+.navlink { position: relative; color: var(--muted); padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 15px; }
 .navlink:hover { color: var(--text); text-decoration: none; background: var(--panel-2); }
 .navlink.router-link-exact-active, .navlink.router-link-active:not([href='/']) { color: var(--edge); background: rgba(90,210,234,.08); }
 .dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; }
 .dot.warn { background: var(--warn); } .dot.fail { background: var(--fail); }
 .status { display: flex; align-items: center; gap: 8px; }
-.small { font-size: 12px; }
+.small { font-size: 14px; }
 .led { width: 9px; height: 9px; border-radius: 50%; background: var(--fail); box-shadow: 0 0 8px var(--fail); }
 .led.on { background: var(--pass); box-shadow: 0 0 8px var(--pass); }
 .foot { text-align: center; padding: 20px; }

@@ -96,17 +96,17 @@ const mockPrint = () => mock('start', { name: `Test print ${new Date().toLocaleT
 .slot.ask { border-color: rgba(243,197,107,.5); }
 .slot.empty { border-style: dashed; }
 .head { display: flex; justify-content: space-between; align-items: center; }
-.label { font-size: 20px; font-weight: 700; color: var(--edge); }
-.empty-slot { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.label { font-size: 23px; font-weight: 700; color: var(--edge); }
+.empty-slot { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .tray { display: flex; gap: 10px; align-items: center; }
 .swatch.lg { width: 28px; height: 28px; }
 .t1 { font-weight: 600; }
-.small { font-size: 12px; }
+.small { font-size: 14px; }
 .spool { border-top: 1px solid var(--line); padding-top: 12px; }
 .sp-link { display: flex; gap: 10px; align-items: center; color: var(--text); }
 .sp-link:hover { text-decoration: none; }
 .sp-link img { width: 56px; height: 56px; border-radius: 6px; object-fit: contain; background: #fff; }
-.ask-box p { color: var(--warn); margin-bottom: 8px; font-size: 13px; }
+.ask-box p { color: var(--warn); margin-bottom: 8px; font-size: 15px; }
 .cand { width: 100%; justify-content: flex-start; margin-bottom: 6px; font-weight: 500; }
 .mock { border-style: dashed; }
 </style>

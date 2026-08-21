@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import inspect, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -386,7 +386,20 @@ async def serialize_slots(db: AsyncSession) -> list[dict]:
 
 
 def spool_summary(s: Spool) -> dict:
+    # Product specs only when the relationship is already loaded (async lazy-load would raise).
+    product = s.product if "product" not in inspect(s).unloaded else None
     return {
+        "strength_mpa": product.strength_mpa if product else None,
+        "stiffness_mpa": product.stiffness_mpa if product else None,
+        "toughness_kj_m2": product.toughness_kj_m2 if product else None,
+        "heat_resistance_c": product.heat_resistance_c if product else None,
+        "nozzle_temp_min_c": product.nozzle_temp_min_c if product else None,
+        "nozzle_temp_max_c": product.nozzle_temp_max_c if product else None,
+        "bed_temp_min_c": product.bed_temp_min_c if product else None,
+        "bed_temp_max_c": product.bed_temp_max_c if product else None,
+        "drying_temp_c": product.drying_temp_c if product else None,
+        "drying_time_h": product.drying_time_h if product else None,
+        "density_g_cm3": product.density_g_cm3 if product else None,
         "id": s.id,
         "brand": s.brand,
         "material": s.material,

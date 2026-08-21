@@ -128,7 +128,7 @@ async def list_spools(
     db: AsyncSession = Depends(get_session),
     include_discarded: bool = False,
 ):
-    q = select(Spool).order_by(Spool.subtype, Spool.colour_name, Spool.id)
+    q = select(Spool).options(selectinload(Spool.product)).order_by(Spool.subtype, Spool.colour_name, Spool.id)
     if not include_discarded:
         q = q.where(Spool.location != "discarded")
     rows = (await db.execute(q)).scalars().all()

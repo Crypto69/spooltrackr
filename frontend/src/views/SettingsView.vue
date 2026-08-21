@@ -75,7 +75,7 @@ async function reconnect() { try { const st = await api.post('/api/settings/reco
   </div>
 </template>
 <style scoped>
-.help { margin-top: 6px; font-size: 13px; color: var(--muted); } .help summary { cursor: pointer; color: var(--edge); } .help ol { padding-left: 20px; margin-top: 8px; display: grid; gap: 4px; }
+.help { margin-top: 6px; font-size: 15px; color: var(--muted); } .help summary { cursor: pointer; color: var(--edge); } .help ol { padding-left: 20px; margin-top: 8px; display: grid; gap: 4px; }
 .led { width: 10px; height: 10px; border-radius: 50%; background: var(--fail); } .led.on { background: var(--pass); }
-.log { font-family: var(--font-data); font-size: 11px; white-space: pre-wrap; background: var(--ink); padding: 10px; border-radius: 6px; margin-top: 6px; max-height: 240px; overflow: auto; }
+.log { font-family: var(--font-data); font-size: 12px; white-space: pre-wrap; background: var(--ink); padding: 10px; border-radius: 6px; margin-top: 6px; max-height: 240px; overflow: auto; }
 </style>

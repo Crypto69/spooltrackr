@@ -15,5 +15,5 @@ const dash = computed(() => `${(Math.max(0, Math.min(100, props.pct)) / 100) * c
 <style scoped>
 .arc { stroke: var(--edge); transition: stroke-dasharray .5s ease; }
 .gauge.warn .arc { stroke: var(--warn); } .gauge.fail .arc { stroke: var(--fail); }
-.lbl { fill: var(--text); font-size: 13px; font-weight: 600; }
+.lbl { fill: var(--text); font-size: 15px; font-weight: 600; }
 </style>

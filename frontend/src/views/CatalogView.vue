@@ -76,12 +76,12 @@ async function setHex(v, ev) { try { await api.patch(`/api/catalog/variants/${v.
 <style scoped>
 .prod { padding: 12px 16px; }
 .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; flex-wrap: wrap; }
-.name { font-weight: 600; font-size: 15px; }
-.small { font-size: 12px; } .chev { color: var(--muted); }
+.name { font-weight: 600; font-size: 17px; }
+.small { font-size: 14px; } .chev { color: var(--muted); }
 .variants { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
 .var { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; }
 .var.owned { border-color: rgba(90,210,234,.5); }
 .var img, .var .ph { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 6px; background: #fff; display: block; }
-.vname { font-weight: 600; font-size: 13px; }
+.vname { font-weight: 600; font-size: 15px; }
 input[type=color] { width: 28px; height: 22px; padding: 0; border: none; background: none; }
 </style>
