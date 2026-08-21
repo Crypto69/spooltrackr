@@ -13,13 +13,20 @@ for c in git /usr/bin/git /usr/local/bin/git /opt/bin/git /usr/local/git/bin/git
   if command -v "$c" >/dev/null 2>&1; then GIT="$c"; break; fi
 done
 
+# On this NAS `git` is often only a shell alias, invisible to scripts. Fall back
+# to git inside a throwaway container so pulling still works.
+if [ -z "$GIT" ] && command -v docker >/dev/null 2>&1; then
+  echo "note: no git binary; using docker alpine/git"
+  GIT="docker run --rm -v $(pwd):/repo -w /repo -e HOME=/tmp alpine/git -c safe.directory=/repo"
+fi
+
 if [ -n "$GIT" ]; then
   if [ "$1" != "--no-pull" ]; then
     echo "pulling latest..."
-    "$GIT" pull --ff-only
+    $GIT pull --ff-only
   fi
-  GIT_SHA="$("$GIT" rev-parse --short HEAD)"
-  if [ -n "$("$GIT" status --porcelain --untracked-files=no)" ]; then
+  GIT_SHA="$($GIT rev-parse --short HEAD)"
+  if [ -n "$($GIT status --porcelain --untracked-files=no)" ]; then
     GIT_SHA="${GIT_SHA}-dirty"
   fi
 else
