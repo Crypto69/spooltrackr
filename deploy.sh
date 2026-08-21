@@ -1,15 +1,23 @@
 #!/bin/sh
-# Rebuild and restart SpoolTrackr, stamping the image with the git commit.
-# Usage, on the NAS:  ./deploy.sh
+# Pull latest, rebuild and restart SpoolTrackr, stamping the image with the git commit.
+# Usage, on the NAS:  ./deploy.sh            (pulls main first)
+#                     ./deploy.sh --no-pull  (build what is checked out)
 set -e
 cd "$(dirname "$0")"
 
+# The NAS keeps git off the default PATH for non-login shells; look in the
+# usual places, and if all else fails read the commit straight from .git.
 GIT=""
-for c in git /usr/bin/git /usr/local/bin/git /opt/bin/git /Volume1/@apps/git/bin/git; do
+for c in git /usr/bin/git /usr/local/bin/git /opt/bin/git /usr/local/git/bin/git \
+         /Volume1/@apps/git/bin/git; do
   if command -v "$c" >/dev/null 2>&1; then GIT="$c"; break; fi
 done
 
 if [ -n "$GIT" ]; then
+  if [ "$1" != "--no-pull" ]; then
+    echo "pulling latest..."
+    "$GIT" pull --ff-only
+  fi
   GIT_SHA="$("$GIT" rev-parse --short HEAD)"
   if [ -n "$("$GIT" status --porcelain --untracked-files=no)" ]; then
     GIT_SHA="${GIT_SHA}-dirty"
@@ -25,7 +33,7 @@ else
   fi
   GIT_SHA="$(printf '%s' "$full" | cut -c1-7)"
   [ -n "$GIT_SHA" ] || GIT_SHA=unknown
-  echo "note: git not on PATH; commit read from .git (dirty check skipped)"
+  echo "note: git not found; NOT pulled, commit read from .git (dirty check skipped)"
 fi
 BUILD_TIME="$(date -u +%Y-%m-%dT%H:%MZ)"
 export GIT_SHA BUILD_TIME

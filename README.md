@@ -58,7 +58,7 @@ cp .env.example .env && vi .env      # printer IP / serial / access code, db pas
 ```
 
 Then open `http://<nas>:8322`. Postgres data lives in `./data/pg`.
-Updates: `git pull && chmod -R a+rX . && ./deploy.sh`.
+Updates: `./deploy.sh` (pulls `main` first; `./deploy.sh --no-pull` to skip).
 
 ## Printer requirements
 
