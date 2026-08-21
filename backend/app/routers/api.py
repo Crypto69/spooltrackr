@@ -497,7 +497,7 @@ async def delete_print(print_id: int, db: AsyncSession = Depends(get_session)):
 
 # ---------------- catalog ----------------
 def product_out(p: FilamentProduct) -> dict:
-    return {c.name: getattr(p, c.name) for c in FilamentProduct.__table__.columns}
+    return {c.name: getattr(p, c.name) for c in FilamentProduct.__table__.columns} | {"shrinkage_rank": p.shrinkage_rank}
 
 
 def variant_out(v: FilamentVariant) -> dict:

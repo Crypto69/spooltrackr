@@ -400,6 +400,7 @@ def spool_summary(s: Spool) -> dict:
         "drying_temp_c": product.drying_temp_c if product else None,
         "drying_time_h": product.drying_time_h if product else None,
         "density_g_cm3": product.density_g_cm3 if product else None,
+        "shrinkage_rank": product.shrinkage_rank if product else None,
         "id": s.id,
         "brand": s.brand,
         "material": s.material,

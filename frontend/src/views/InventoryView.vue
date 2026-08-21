@@ -55,6 +55,7 @@ const filtered = computed(() => {
     stiffness: byNumDesc('stiffness_mpa'),
     toughness: byNumDesc('toughness_kj_m2'),
     heat: byNumDesc('heat_resistance_c'),
+    shrinkage: (a, b) => (a.shrinkage_rank ?? Infinity) - (b.shrinkage_rank ?? Infinity) || a.subtype.localeCompare(b.subtype),
   }
   return [...list].sort(by[sort.value])
 })
@@ -88,7 +89,7 @@ async function create(data) {
       <input v-model="q" placeholder="Search colour, type, brand…" class="grow" data-test="search" />
       <select v-model="material"><option value="">All materials</option><option v-for="m in materials" :key="m">{{ m }}</option></select>
       <select v-model="location"><option value="">Anywhere</option><option value="ams">In AMS</option><option value="stored">Stored</option><option value="sealed">Sealed / unopened</option></select>
-      <select v-model="sort" data-test="sort"><option value="name">Sort: type</option><option value="remaining">Sort: least remaining</option><option value="location">Sort: location</option><option value="newest">Sort: newest</option><option value="strength">Sort: strength (bending)</option><option value="stiffness">Sort: stiffness (modulus)</option><option value="toughness">Sort: toughness (impact)</option><option value="heat">Sort: heat resistance</option></select>
+      <select v-model="sort" data-test="sort"><option value="name">Sort: type</option><option value="remaining">Sort: least remaining</option><option value="location">Sort: location</option><option value="newest">Sort: newest</option><option value="strength">Sort: strength (bending)</option><option value="stiffness">Sort: stiffness (modulus)</option><option value="toughness">Sort: toughness (impact)</option><option value="heat">Sort: heat resistance</option><option value="shrinkage">Sort: least shrinkage</option></select>
       <label class="row" style="margin:0"><input type="checkbox" v-model="lowOnly" /> Low only</label>
       <label class="row" style="margin:0"><input type="checkbox" v-model="grouped" /> Group by type</label>
       <button :class="{ primary: comparing }" @click="comparing ? stopComparing() : (comparing = true)" data-test="compare-toggle">{{ comparing ? 'Done' : 'Compare' }}</button>

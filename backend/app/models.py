@@ -52,6 +52,27 @@ class FilamentProduct(Base):
 
     variants: Mapped[list[FilamentVariant]] = relationship(back_populates="product", cascade="all, delete-orphan")
 
+    @property
+    def shrinkage_rank(self) -> float | None:
+        """Print-shrinkage rank, 1 (least) .. 7 (most). Derived from material, not stored."""
+        return shrinkage_rank(self.material, self.name)
+
+
+# Bambu wiki "3D Prints Shrinkage" ordering of base polymers, most -> least shrink-prone:
+# PC > PA > ABS > ASA > PETG > PLA. Fibre-filled (CF/GF) variants shrink a little less
+# than the base polymer, so they get a -0.5 nudge (a hint, not a measurement).
+SHRINKAGE_RANK = {"PLA": 1, "PETG": 2, "PET": 2, "ASA": 3, "ABS": 4, "PA": 5, "PC": 7}
+FIBRE_BONUS = 0.5
+
+
+def shrinkage_rank(material: str | None, name: str | None = None) -> float | None:
+    base = SHRINKAGE_RANK.get((material or "").upper())
+    if base is None:
+        return None
+    n = (name or "").upper().replace("-", " ").replace("_", " ")
+    fibre = any(tok in ("CF", "GF") for tok in n.split())
+    return base - FIBRE_BONUS if fibre else base
+
 
 class FilamentVariant(Base):
     """One colour of a product, as listed on the Bambu store."""

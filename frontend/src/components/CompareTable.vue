@@ -17,6 +17,7 @@ const ROWS = [
   ['Stiffness (modulus)', (s) => (s.stiffness_mpa == null ? null : `${s.stiffness_mpa} MPa`), { num: (s) => s.stiffness_mpa, best: 'max' }],
   ['Toughness (impact)', (s) => (s.toughness_kj_m2 == null ? null : `${s.toughness_kj_m2} kJ/m²`), { num: (s) => s.toughness_kj_m2, best: 'max' }],
   ['Heat resistance (HDT)', (s) => (s.heat_resistance_c == null ? null : `${s.heat_resistance_c} °C`), { num: (s) => s.heat_resistance_c, best: 'max' }],
+  ['Print shrinkage (1 = least)', (s) => (s.shrinkage_rank == null ? null : `${s.shrinkage_rank} / 7`), { num: (s) => s.shrinkage_rank, best: 'min' }],
   ['Nozzle temp', (s) => range(s.nozzle_temp_min_c, s.nozzle_temp_max_c, '°C')],
   ['Bed temp', (s) => range(s.bed_temp_min_c, s.bed_temp_max_c, '°C')],
   ['Drying', (s) => (s.drying_temp_c == null ? null : `${s.drying_temp_c} °C${s.drying_time_h ? ` · ${s.drying_time_h} h` : ''}`)],

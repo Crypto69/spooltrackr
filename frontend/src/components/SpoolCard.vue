@@ -14,6 +14,7 @@ const SPECS = [
   ['stiffness_mpa', 'Stiff', 'Stiffness (modulus)', 'MPa'],
   ['toughness_kj_m2', 'Impact', 'Toughness (impact)', 'kJ/m²'],
   ['heat_resistance_c', 'Heat', 'Heat resistance (HDT)', '°C'],
+  ['shrinkage_rank', 'Shrink', 'Print shrinkage rank (1 = least, 7 = most)', '/7'],
 ]
 const specs = computed(() => SPECS.filter(([k]) => props.spool[k] != null).map(([k, label, title, unit]) => ({ label, title, value: `${props.spool[k]} ${unit}` })))
 </script>

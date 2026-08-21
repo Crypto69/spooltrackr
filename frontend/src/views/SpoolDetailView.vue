@@ -35,6 +35,7 @@ const specs = computed(() => {
     ['Strength (bending)', p.strength_mpa, 'MPa'],
     ['Stiffness (modulus)', p.stiffness_mpa, 'MPa'],
     ['Toughness (impact)', p.toughness_kj_m2, 'kJ/m²'],
+    ['Print shrinkage rank', p.shrinkage_rank != null ? `${p.shrinkage_rank} of 7 (1 = least)` : null, ''],
     ['Drying', p.drying_temp_c != null ? `${p.drying_temp_c} °C · ${p.drying_time_h ?? '?'} h` : null, ''],
     ['Density', p.density_g_cm3, 'g/cm³'],
   ].filter((x) => x[1] != null)
