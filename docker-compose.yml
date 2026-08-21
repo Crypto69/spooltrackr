@@ -1,0 +1,38 @@
+services:
+  app:
+    image: spooltrackr:latest
+    build:
+      context: .
+      args:
+        GIT_SHA: ${GIT_SHA:-unknown}
+        BUILD_TIME: ${BUILD_TIME:-unknown}
+    ports:
+      - "8322:8000"
+    environment:
+      SPOOL_DATABASE_URL: postgresql+asyncpg://spool:${POSTGRES_PASSWORD:-spool}@db:5432/spooltrackr
+      # First-boot printer settings (can also be set in the UI under Settings):
+      SPOOL_PRINTER_MODE: ${SPOOL_PRINTER_MODE:-mock}
+      SPOOL_PRINTER_HOST: ${SPOOL_PRINTER_HOST:-}
+      SPOOL_PRINTER_SERIAL: ${SPOOL_PRINTER_SERIAL:-}
+      SPOOL_PRINTER_ACCESS_CODE: ${SPOOL_PRINTER_ACCESS_CODE:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 512m
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: spool
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-spool}
+      POSTGRES_DB: spooltrackr
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spool -d spooltrackr"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 512m
+    restart: unless-stopped
